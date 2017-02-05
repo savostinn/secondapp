@@ -1,0 +1,13 @@
+<h1>Projects#create</h1>
+<%= form_for :todo do |f| %>
+  <p>
+  <b><p class="up" align="left">Новая задача</p></b>
+    <%= f.text_field :text,:placeholder => 'Новая задача...' %> <br>
+	<%= collection_select(:todo,:project_id,Project.all,:id, :title,{},{:multiple => false}) %><br>
+	  <%= form_tag todo_path, id: "form" do %>
+    <%= link_to "OK",todo_path, :onclick => "$f.submit"%>
+	<%= link_to "ОТМЕНА", projects_path, id: "lol" %>
+<% end %>
+  </p>
+<%= @todo %>
+<% end %>

@@ -1,0 +1,28 @@
+<style>
+p.up {text-transform: uppercase;}
+    ul {margin-top: 0; margin-bottom: 0;}
+</style>
+<h1>Задачи</h1>
+<br>
+  <% @projects.each do |project| %>
+	  <b><p class="up" align="left"><%= project.title %></p></b>
+	 <% project.todos.find_all do |todo| %>
+	 <ul>
+	 <li align="left"><%= todo.text %></li>
+	 </ul>
+	 <% end %>
+  <% end %>
+  <a id="add_todo" onclick="event.preventDefault()" href="">
+<%= image_tag("addTodoIcon.png", :alt => "AddTodoIcon") %>
+</a>
+<div id="mydiv1">
+  <%= form_for :todo,url: projects_path, :html => { :id => "new_todo" }  do |f| %>
+  <p>
+  <b><p class="up" align="left">Новая задача</p></b>
+    <%= f.text_field :text,:placeholder => 'Новая задача...' %> <br>
+	<%= collection_select(:todo,:project_id,Project.all,:id, :title,{},{:multiple => false}) %><br>
+	<a href="#" onclick="document.getElementById('new_todo').submit(); return false;">ОК</a>
+	<%= link_to "ОТМЕНА",'',:onclick => "event.preventDefault()",:id => "cancel" %>
+  </p>
+<% end %>
+</div>
